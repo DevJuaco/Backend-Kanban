@@ -1,6 +1,5 @@
 const admin = require('firebase-admin')
 const db = admin.firestore()
-
 class TaskService {
     
     async createTask (name, status) {
@@ -32,6 +31,16 @@ class TaskService {
     async updateTask (taskId, data) {
         await db.collection('tasks').doc(taskId).update(data)
     }
+
+    async getTasksByStatus (status) {
+       const snapshot = await db.collection('tasks').where('status', '==', parseInt(status)).get()
+       const query = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+    }))
+    return query
+    }
+
 }
 
 module.exports = TaskService

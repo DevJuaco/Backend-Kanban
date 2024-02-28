@@ -71,10 +71,25 @@ const updateTask = async (req, res) => {
     }
 }
 
+const getTasksByStatus = async (req, res) => {
+    const status = req.params.status
+
+    try {
+        const data = await service.getTasksByStatus(status)
+        res.status(200).json(data)
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send(error)
+    }
+    
+}
+
 module.exports = {
     addNewTask,
     getTaskById,
     getAllTasks,
     deleteTask,
-    updateTask
+    updateTask,
+    getTasksByStatus
 }

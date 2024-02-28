@@ -9,7 +9,6 @@ admin.initializeApp({
     credential: admin.credential.cert('./credentials.json')
 })
 //app.use(cors())
-const db = admin.firestore()
 app.use('/api/tasks', require('./routes/tasks.routes'))
 
 
